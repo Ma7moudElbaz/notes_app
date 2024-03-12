@@ -29,7 +29,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
       autovalidateMode: autoValidateMode,
       child: Column(
         children: [
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           CustomTextField(
             onSaved: (value) {
               title = value;
@@ -60,11 +60,10 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         DateFormat('dd-mm-yyyy').format(currentDate);
 
                     var noteModel = NoteModel(
-                      title: title!,
-                      subTitle: subtitle!,
-                      date: formattedCurrentDate.toString(),
-                      color: Colors.blue.value,
-                    );
+                        title: title!,
+                        subTitle: subtitle!,
+                        date: formattedCurrentDate.toString(),
+                        color: Colors.blue.value);
 
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                   } else {

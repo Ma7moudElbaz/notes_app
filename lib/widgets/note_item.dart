@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/models/note_model.dart';
 
+import '../cubits/notes_cubit/notes_cubit.dart';
 import '../views/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
@@ -12,22 +14,23 @@ class NoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditNoteView(
-            note: note,
-          );
-        }));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return EditNoteView(
+                note: note,
+              );
+            },
+          ),
+        );
       },
       child: Container(
-        padding: const EdgeInsets.only(
-          top: 24,
-          bottom: 24,
-          left: 16,
-        ),
         decoration: BoxDecoration(
           color: Color(note.color),
           borderRadius: BorderRadius.circular(16),
         ),
+        padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -44,7 +47,7 @@ class NoteItem extends StatelessWidget {
                 child: Text(
                   note.subTitle,
                   style: TextStyle(
-                    color: Colors.black.withOpacity(.5),
+                    color: Colors.black.withOpacity(.4),
                     fontSize: 18,
                   ),
                 ),
@@ -52,7 +55,7 @@ class NoteItem extends StatelessWidget {
               trailing: IconButton(
                 onPressed: () {
                   note.delete();
-                  // BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                  BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                 },
                 icon: const Icon(
                   FontAwesomeIcons.trash,
